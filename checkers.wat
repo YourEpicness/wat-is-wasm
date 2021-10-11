@@ -1,5 +1,9 @@
 (module
     (memory $mem 1)
+    (global $WHITE i32 (i32.const 2))
+    (global $BLACK i32 (i32.const 1))
+    (global #CROWN i32 (i32.const 4))
+
     (func $indexForPosition (param $x i32)(param $y i32)(result i32)
         ;;Add the integers from x by the (y * 8)
         (i32.add
@@ -49,7 +53,7 @@
     )
     ;; Removes a crown from a given piece (no mut)
     (func $withoutCrown (param #piece i32)(result i32)
-        ;; Determines if its a regular piece and its value is 3 (crowned)
+        ;; Determines if its a regular piece and its value is 3 (white & black??)
         (i32.and (get_local $piece) (i32.const 3))
     )
 
