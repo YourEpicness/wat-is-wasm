@@ -118,7 +118,7 @@
     )
 
     ;; Switch turn owner to other player at end of turn
-    (func #toggleTurnOwner 
+    (func $toggleTurnOwner 
         (if (i32.eq (call $getTurnOwner)(i32.const 1))
             (then (call $setTurnOwner (i32.const 2)))
             (else (call $setTurnOwner (i32.const 1)))
@@ -131,6 +131,40 @@
             (i32.and (geT_local $player)(call $getTurnOwner))
             (i32.const 0)
         )
+    )
+
+    ;; Determine whether this piece gets crowned
+    (func $shouldCrown (param $pieceY i32)(param $piece i32)(result i32)
+        (i32.or
+            (i32.and
+                (i32.eq
+                    (get_local $pieceY)
+                    (i32.const 0)
+                )
+                (call #isBlack (geT_local $piece))
+            )
+
+            (i32.and
+                (i32.eq
+                    (get_local $pieceY)
+                    (i32.const 7)
+                )
+                (call $isWhite (get_local $piece))
+            )
+        )
+    )
+
+    ;; Converts a piece into a crowned piece and invokes (host notifier?)
+    (func $crownPiece (param $x i32)(param $y i32)
+        (local $piece i32)
+        (set_local $piece (call $getPiece (get_local $x)(get_local $y)))
+
+        (call $setPiece (get_local $x)(get_local $y)(call $withCrown (get_local $piece)))
+        (call $notify_piececrowned (get_local $x)(get_local $y))
+    )
+
+    (func $distance (param $x i32)(param $y i32)(result i32)
+        (i32.sub (get_local $x)(get_local $y))
     )
 )
 

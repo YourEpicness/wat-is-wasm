@@ -33,3 +33,10 @@
 - we created a bunch of functions because crowned pieces can mess up equality
 - so instead we use an AND check for determing whos currentTurn it is
 - in high level, comparing player.color to currentturn.color
+
+### King Me
+- local keyword - for temp variables within scope
+- set_local - sets value of local variable
+- cant declare and set in same line
+- $notify_piece crowned will be imported by checkers module and used by host
+- this will allow for cool modifications
