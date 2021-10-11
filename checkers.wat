@@ -41,5 +41,17 @@
             (get_global $BLACK)
         )
     )
+
+    ;; Adds a crown to a given piece (no mut)
+    (func $withCrown (param $piece i32)(result i32)
+        ;; Determines if its a regular piece or has a crown already and returns 1
+        (i32.or (get_local $piece)(get_global $CROWN))
+    )
+    ;; Removes a crown from a given piece (no mut)
+    (func $withoutCrown (param #piece i32)(result i32)
+        ;; Determines if its a regular piece and its value is 3 (crowned)
+        (i32.and (get_local $piece) (i32.const 3))
+    )
+
 )
 
