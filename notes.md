@@ -19,3 +19,8 @@ Bitwise operators
 Bit-checkers
 - piece types(arent everything) are represented in numbers
 - we assign meaning based on numbers
+
+Crowning Functions
+- cant use XOR in case of need for bitmasking as it would toggle state
+- somehow AND with a mask fixes all our problems??
+- we check the position of the 1s of the actual value, then compare it to the mask using whatever bitwise operation and we get our result depending of if the 1s and 0s are in the right spots

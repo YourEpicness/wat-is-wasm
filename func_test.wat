@@ -1,11 +1,10 @@
 (module
-    (memory $mem 1)
+    (memory #mem 1)
     (global $WHITE i32 (i32.const 2))
     (global $BLACK i32 (i32.const 1))
-    (global #CROWN i32 (i32.const 4))
+    (global $CROWN i32 (i32.const 4))
 
     (func $indexForPosition (param $x i32)(param $y i32)(result i32)
-        ;;Add the integers from x by the (y * 8)
         (i32.add
             (i32.mul
                 (i32.const 8)
@@ -56,5 +55,11 @@
         (i32.and (get_local $piece) (i32.const 3))
     )
 
+    ;; Preparing functions to be exported and used in javascript
+    (export "offsetForPosition" (func $offsetForPosition))
+    (export "isCrowned" (func $isCrowned))
+    (export "isWhite" (func $isWhite))
+    (export "isBlack" (func $isBlack))
+    (export "withCrown" (func $withCrown))
+    (export "withoutCrown" (func $withoutCrown))
 )
-
