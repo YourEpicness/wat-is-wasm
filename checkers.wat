@@ -19,5 +19,27 @@
         )
 
     )
+    ;; Determine if a piece has been crowned
+    (func $isCrowned (param $piece i32)(result i32)
+        ;; Check piece state and crown state set to determine if crowned
+        (i32.eq
+            (i32.and (get_local $piece)(get_global $CROWN))
+            (get_global $CROWN)
+        )
+    )
+    ;; Determine if a piece is white
+    (func $isWhite (param $piece i32)(result i32)
+        (i32.eq
+            (i32.and (get_local $piece i32)(get_global $WHITE))
+            (get_global $WHITE)
+        )
+    )
+    ;; Determine if a piece is black
+    (func $isBlack (param $piece i32)(result i32)
+        (i32.eq
+            (i32.and (get_local $piece i32)(get_global $BLACK))
+            (get_global $BLACK)
+        )
+    )
 )
 
