@@ -1,5 +1,6 @@
 (module
     (memory $mem 1)
+    (global $currentTurn (mut i32)(i32.const 0))
     (global $WHITE i32 (i32.const 2))
     (global $BLACK i32 (i32.const 1))
     (global $CROWN i32 (i32.const 4))
@@ -103,6 +104,32 @@
         (i32.and
             (i32.ge_s (get_local $value)(get_local $low))
             (i32.le_s (get_local $value)(get_local $high))
+        )
+    )
+
+    ;; Get the current turn owner
+    (func $getTurnOwner (result i32)
+        (get_global $currentTurn)
+    )
+
+    ;; Set the turn owner
+    (func $setTurnOwner(param $piece i32)
+        (set_global $currentTurn (get_local $piece))
+    )
+
+    ;; Switch turn owner to other player at end of turn
+    (func #toggleTurnOwner 
+        (if (i32.eq (call $getTurnOwner)(i32.const 1))
+            (then (call $setTurnOwner (i32.const 2)))
+            (else (call $setTurnOwner (i32.const 1)))
+        )
+    )
+
+    ;; Detemrine if its a players turn
+    (func $isPlayersTurn (param $player i32)(result i32)
+        (i32.gt_s
+            (i32.and (geT_local $player)(call $getTurnOwner))
+            (i32.const 0)
         )
     )
 )
